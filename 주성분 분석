@@ -1,0 +1,31 @@
+# 주성분 분석
+# USArrests 자료
+library(datasets)
+data(USArrests)
+pairs(USArrests, panel = panel.smooth, main = "USArrests data")
+
+# Summary
+US.prin <- princomp(USArrests, cor = TRUE)
+summary(US.prin)
+screeplot(US.prin, npcs = 4, type = "lines")
+
+# 해석
+# 제 1주성분은 전체의 62% 차지
+# 제 2주성분은 전체의 24% 차지
+# 제 1, 제2 주성분은 전체의 68% 차지
+
+loadings(US.prin)
+#각 주성분이 기여하는 가중치가 제시
+# 제1주성분은 네개의 변수가 평균적으로 기여
+
+US.prin$scores
+# 각 주성분의 선형식을 통해 각 지역별로 얻은 결과를 제시
+
+# 제1-2 주성분에 의한 행렬도
+arrests.pca <- prcomp(USArrests, center = TRUE, scale. = TRUE)
+biplot(arrests.pca, scale = 0)
+
+# 해석
+# 조지아, 메릴랜드, 뉴 멕시코 등은 폭행과 살인의 비율이 상대적으로 높은 지역
+# 미시간, 텍사스 등은 강간의 비율이 높은 지역
+# 콜로라도, 캘리포니아, 뉴저지 등은 도시에 거주하는 인구의 비율이 높은 지역
